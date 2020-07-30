@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const app = express();
+var path = require("path")
 
 var PORT = process.env.PORT || 8080;
 
@@ -9,7 +10,7 @@ var connection = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "Tomcat96!?",
-  database: "wizard_schools_db"
+  database: "notes_db"
 });
 
 connection.connect(function(err) {
@@ -19,6 +20,14 @@ connection.connect(function(err) {
     }
     console.log("connected as id " + connection.threadId);
 });
+
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "index.html"))
+})
+
+app.get("/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "notes.html"))
+})
 
 app.listen(PORT, function() {
     // Log (server-side) when our server has started
