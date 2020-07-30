@@ -39,4 +39,22 @@
   <script src="/assets/js/index.js"></script>
 </body>
 
+<!-- <script type= "text/javascript">
+
+function savingNote() {
+    alert("Saving Note");
+
+    // Clear the tables on the server and then empty the elements on the client
+    $.ajax({ url: "/api/notes", method: "POST" }).then(function() {
+      $(".note-title").val().trim();
+      $("note-textarea").val.trim();
+      $(".note-title").empty();
+      $(".note-textarea").empty();
+    });
+  }
+
+  $("#clear").on("click", savingNote());
+
+</script> -->
+
 </html>

@@ -29,6 +29,10 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "notes.html"))
 })
 
+app.post("/api/notes", function(req, res) {
+    
+})
+
 app.listen(PORT, function() {
     // Log (server-side) when our server has started
     console.log("Server listening on: http://localhost:" + PORT);
