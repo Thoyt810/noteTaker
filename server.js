@@ -4,6 +4,10 @@ const app = express();
 var path = require("path")
 
 var PORT = process.env.PORT || 8080;
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+app.use(express.static("public"));
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -22,15 +26,26 @@ connection.connect(function(err) {
 });
 
 app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "index.html"))
+    res.sendFile(path.join(__dirname, "../public/index.html"))
 })
 
 app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "notes.html"))
+    res.sendFile(path.join(__dirname, "../public/notes.html"))
 })
 
 app.post("/api/notes", function(req, res) {
-    
+    console.log(req)
+    connection.query("INSERT INTO notes SET ?", [req.body])
+})
+
+app.get("/api/notes", function( req, res) {
+  console.log(req);
+  connection.query("SELECT * FROM notes;", function(err,data) {
+    if (err) {
+      throw err 
+    }
+    res.json(data);
+  })
 })
 
 app.listen(PORT, function() {
